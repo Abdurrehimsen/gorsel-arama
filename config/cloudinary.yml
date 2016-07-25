@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: diit0qzwp
+  api_key: '783966245416581'
+  api_secret: tOssYpyXRAwgmdef7ZQqtyXFXoU
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: diit0qzwp
+  api_key: '783966245416581'
+  api_secret: tOssYpyXRAwgmdef7ZQqtyXFXoU
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: diit0qzwp
+  api_key: '783966245416581'
+  api_secret: tOssYpyXRAwgmdef7ZQqtyXFXoU
+  enhance_image_tag: true
+  static_image_support: false

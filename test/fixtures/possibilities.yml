@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  poss: 1.5
+  tag_id: 
+  photo_id: 
+
+two:
+  poss: 1.5
+  tag_id: 
+  photo_id: 
