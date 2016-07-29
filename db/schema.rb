@@ -11,11 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160725200426) do
+ActiveRecord::Schema.define(version: 20160728174200) do
 
   create_table "photos", force: true do |t|
     t.integer  "docid"
     t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pictures", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -30,6 +36,12 @@ ActiveRecord::Schema.define(version: 20160725200426) do
 
   add_index "possibilities", ["photo_id"], name: "index_possibilities_on_photo_id"
   add_index "possibilities", ["tag_id"], name: "index_possibilities_on_tag_id"
+
+  create_table "posts", force: true do |t|
+    t.string   "attr"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "tags", force: true do |t|
     t.string   "name"

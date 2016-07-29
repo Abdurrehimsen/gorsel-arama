@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
+gem 'carrierwave'
+gem 'fog'
 gem 'cloudinary', '~> 1.2'
 gem 'clarifai-rails'
 gem "pry-rails"

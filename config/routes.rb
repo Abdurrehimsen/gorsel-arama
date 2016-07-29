@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'photo/index'
+  resources :pictures, controller: 'pictures'
 
   get 'home/index'
 
@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'home#index'
+  root 'pictures#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
