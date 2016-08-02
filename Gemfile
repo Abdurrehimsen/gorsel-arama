@@ -7,7 +7,7 @@ gem "pry-rails"
 gem "better_errors"
 gem 'json'
 gem "awesome_print"
-
+gem "binding_of_caller"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.10'
 # Use sqlite3 as the database for Active Record

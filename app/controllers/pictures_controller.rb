@@ -1,16 +1,40 @@
 class PicturesController < ApplicationController
   before_action :set_picture, only: [:show, :edit, :update, :destroy]
-  @tags = []
-  @url = ""
   # GET /pictures
   # GET /pictures.json
   def index
     @pictures = Picture.all
+    @photo = Photo.all
+  end
+
+  def keepdb(url,tags,docid)
+    @photo = Photo.create(docid: docid, url: url)
+
+    for i in (0..(tags.length-1))
+      tag = tags.keys[i].to_s
+      if (Tag.find_by name: tag) == nil
+        @tag = Tag.create(name: tag)
+      else
+        @tag = Tag.find_by name: tag
+      end
+
+      Possibility.create(poss:tags.values[i], tag: @tag, photo: @photo)
+
+    end
   end
 
   # GET /pictures/1
   # GET /pictures/1.json
   def show
+    res = Clarifai::Rails::Detector.new((@picture.name).to_s).image
+
+    @tags = res.tags_with_percent
+    @url = res.url
+    @docid = res.docid
+
+    keepdb(@url,@tags,@docid)
+
+    @array = [@tags, @url, @docid]
   end
 
   # GET /pictures/new
@@ -36,9 +60,6 @@ class PicturesController < ApplicationController
         format.json { render json: @picture.errors, status: :unprocessable_entity }
       end
     end
-    @res = Clarifai::Rails::Detector.new((@picture.name).to_s).image
-    @tags = @res.tags
-    @url = @res.url
   end
 
   # PATCH/PUT /pictures/1

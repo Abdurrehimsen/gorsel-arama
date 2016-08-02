@@ -1,9 +1,14 @@
 <p id="notice"><%= notice %></p>
+<p>
+  <strong>Etiketler:</strong>
+  	<% @array[0].each do |tag,poss| %><br>
+  		<%= "#{tag}: #{poss}" %><br>
+  	<% end %>
+</p>
 
 <p>
-  <strong>isim:</strong>
-  <%= @tags %><br>
-  <%= @url %>
+<strong>Url Adresi:</strong>
+  <%= @array[1] %><br>
 </p>
 
 <%= link_to 'Edit', edit_picture_path(@picture) %> |

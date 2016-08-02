@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
-  resources :pictures, controller: 'pictures'
-
-  get 'home/index'
+  
+  resources :pictures
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
