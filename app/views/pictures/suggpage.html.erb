@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+<p>
+  <strong>Url Adresi:</strong>
+  	<% (@sugglist.keys).each do |url| %><br>
+  		<%= url.to_s %><br>
+  	<% end %>
+</p>
+
+<%= link_to 'Back', pictures_path %>

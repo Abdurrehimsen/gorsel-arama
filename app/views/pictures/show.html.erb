@@ -10,6 +10,16 @@
 <strong>Url Adresi:</strong>
   <%= @array[1] %><br>
 </p>
+<p>
+  <strong>Öneriler:</strong>
+	  	<% if !@sugglist.empty? %><br>
+		  	<% (@sugglist.keys).each do |url| %><br>
+		  		<%= url.to_s %><br>
+		  	<% end %>
+		<% else %>
+			<%= "Öneri yok" %>
+	  	<% end %>
+</p>
 
 <%= link_to 'Edit', edit_picture_path(@picture) %> |
-<%= link_to 'Back', pictures_path %>
+<%= link_to 'Back', pictures_path %> |

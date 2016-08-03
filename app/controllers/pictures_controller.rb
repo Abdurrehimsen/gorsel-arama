@@ -23,18 +23,77 @@ class PicturesController < ApplicationController
     end
   end
 
+  def candidatelist
+    arr = (Photo.all.to_a).select{|x| x.tags.first.name == @photo.tags.first.name or x.tags[1].name == @photo.tags.first.name}
+  end
+
+  def selector(a,key, value)
+    b = a.to_a
+    len = b.length
+    elm = [key,value]
+    if b.empty?
+      b << elm
+    elsif len<6 && len >0
+      for i in 0..(len-1)
+        if value >= b[i][1]
+          b.insert(i,elm)
+          break
+        else
+          b << elm
+        end
+      end
+    else
+      if value > b[len-1][1]
+        for i in 0..(len-1)
+          if value >= b[i][1]
+            b.insert(i,elm)
+            b.delete(b.last)          
+            break
+          end
+        end   
+      end
+    end
+  
+    return b.to_h
+  end
+
+  def suggestions(sugphoto)
+    sugphotags = {}
+    for i in (0..((sugphoto.tags).length-1))
+      sugphotags[sugphoto.tags[i].name] = sugphoto.possibilities[i].poss
+    end
+
+    point = 0
+
+    @tags.each do |x,y|
+      if sugphotags.has_key?(x.to_s)
+        point += sugphotags[x.to_s] * y
+      end
+    end
+
+    key = sugphoto.url.to_sym
+    @sugglist.replace(selector(@sugglist,key,point))
+      
+  end
+
   # GET /pictures/1
   # GET /pictures/1.json
   def show
     res = Clarifai::Rails::Detector.new((@picture.name).to_s).image
-
+    @sugglist = {}
     @tags = res.tags_with_percent
     @url = res.url
     @docid = res.docid
 
     keepdb(@url,@tags,@docid)
-
     @array = [@tags, @url, @docid]
+    
+    candidatelist = candidatelist()
+    candidatelist.each do |x|
+      suggestions(x)
+    end
+
+    binding.pry
   end
 
   # GET /pictures/new
