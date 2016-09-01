@@ -1,4 +1,5 @@
 <p id="notice"><%= notice %></p>
+<%= image_tag @array[1], size: "80x60" %>
 <p>
   <strong>Etiketler:</strong>
   	<% @array[0].each do |tag,poss| %><br>
@@ -7,19 +8,18 @@
 </p>
 
 <p>
-<strong>Url Adresi:</strong>
-  <%= @array[1] %><br>
-</p>
+
+<h1>Öneriler</h1>
+
 <p>
   <strong>Öneriler:</strong>
 	  	<% if !@sugglist.empty? %><br>
 		  	<% (@sugglist.keys).each do |url| %><br>
-		  		<%= url.to_s %><br>
+		  		<%= image_tag url.to_s, size: "80x60" %>
 		  	<% end %>
 		<% else %>
 			<%= "Öneri yok" %>
 	  	<% end %>
 </p>
 
-<%= link_to 'Edit', edit_picture_path(@picture) %> |
-<%= link_to 'Back', pictures_path %> |
+<%= link_to 'Geri', pictures_path %> 

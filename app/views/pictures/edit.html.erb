@@ -1,6 +1,15 @@
-<h1>Editing picture</h1>
+<h1>Öneriler</h1>
 
-<%= render 'form' %>
+<p>
+  <strong>Öneriler:</strong>
+	  	<% if !@oneriler.empty? %><br>
+		  	<% (@oneriler.keys).each do |url| %><br>
+		  		<img src=url alt="some_text" width = "200" height = "100"\><br>
+		  	<% end %>
+		<% else %>
+			<%= "Öneri yok" %>
+	  	<% end %>
+</p>
 
-<%= link_to 'Show', @picture %> |
-<%= link_to 'Back', pictures_path %>
+<%= link_to 'Etiketler', @picture %> |
+<%= link_to 'Geri', pictures_path %>

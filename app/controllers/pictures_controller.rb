@@ -6,9 +6,9 @@ class PicturesController < ApplicationController
     @pictures = Picture.all
     @photo = Photo.all
   end
-
-  def keepdb(url,tags,docid)
-    @photo = Photo.create(docid: docid, url: url)
+  
+  def keepdb(url,tags)
+    @photo = Photo.create(url: url)
 
     for i in (0..(tags.length-1))
       tag = tags.keys[i].to_s
@@ -79,21 +79,28 @@ class PicturesController < ApplicationController
   # GET /pictures/1
   # GET /pictures/1.json
   def show
-    res = Clarifai::Rails::Detector.new((@picture.name).to_s).image
-    @sugglist = {}
-    @tags = res.tags_with_percent
-    @url = res.url
-    @docid = res.docid
+    python_output =  `python /home/abdurrehim/Desktop/Tarzara/app/tf_files/label_image.py #{@picture.name.url}`
+    i = 0
+    list = python_output.split(" ")
+    respond = {}
+    while i<=(list.length - 1)
+      respond[list[i].to_sym] = list[i+1].to_f  
+      i += 2
+    end
 
-    keepdb(@url,@tags,@docid)
-    @array = [@tags, @url, @docid]
-    
+    @sugglist = {}
+    @tags = respond
+    @url = @picture.name.url
+
+    keepdb(@url,@tags)
+
+    @array = [@tags, @url]
+
     candidatelist = candidatelist()
     candidatelist.each do |x|
       suggestions(x)
     end
-
-    binding.pry
+    
   end
 
   # GET /pictures/new
